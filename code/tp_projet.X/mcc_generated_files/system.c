@@ -103,8 +103,9 @@
 #include "system.h"
 #include "interrupt_manager.h"
 #include "traps.h"
-#include "tmr1.h"
 #include "adc1.h"
+#include "tmr1.h"
+#include "rtcc.h"
 
 void SYSTEM_Initialize(void)
 {
@@ -113,6 +114,7 @@ void SYSTEM_Initialize(void)
     INTERRUPT_Initialize();
     ADC1_Initialize();
     TMR1_Initialize();
+    RTCC_Initialize();
 }
 
 /**

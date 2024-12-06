@@ -53,13 +53,8 @@
  */
 
 
-uint16_t adc_value = 0;
-uint16_t prec_adc_value = 0;
-float temperature;
-float prec_temperature;
-char temp[5];
-uint8_t flag = 0;
-
+    uint8_t tmr_flag = 0;
+    uint8_t time_flag = 0;
 
 
 void setupLCD(){
@@ -70,33 +65,90 @@ void setupLCD(){
 }
 void  TMR1_CallBack(void)
 {
-    flag = 1;
+    tmr_flag = 1;
+}
+
+void RTCC_CallBack(void)
+{
+    time_flag = 1;
 }
 
 
+float get_temp(){
+    uint16_t adc_value = ADC1BUF4;
+    float temp = ((adc_value*3.3/1023)-0.5)*100;
+    return temp;
+}
 
 
 int main(void)
 {
+    
+    float temperature;
+    char temp[5];
+
+    
+    
+    char secondes[2];
+    char minutes[2];
+    char heures[2];
+    char jour[2];
+    char mois[2];
+    char year[4];
+
+    
+    
     // initialize the device
     SYSTEM_Initialize();
     setupLCD();
     
+    
+
+    
     while (1)
     {
-        prec_temperature = temperature;
+
+        if(tmr_flag == 1){
+            tmr_flag =0;
 
 
-
-        if(flag == 1){
-            flag =0;
-            adc_value = ADC1BUF4;
-            temperature = ((adc_value*3.3/1023)-0.5)*100;
+        }
+        if(time_flag){
+            time_flag = 0;
+            
+            temperature = get_temp();
             sprintf( temp, "%.1f", temperature );
+            
+            sprintf( secondes, "%d%d", TIMELbits.SECTEN, TIMELbits.SECONE );
+            sprintf( minutes, "%d%d", TIMEHbits.MINTEN, TIMEHbits.MINONE );
+            sprintf( heures, "%d%d", TIMEHbits.HRTEN, TIMEHbits.HRONE );
+
+            sprintf( jour, "%d%d", DATELbits.DAYTEN, DATELbits.DAYONE );
+            sprintf( mois, "%d%d", DATEHbits.MTHTEN, DATEHbits.MTHONE );
+            sprintf( year, "%d%d", DATEHbits.YRTEN, DATEHbits.YRONE );
+
+
+            
             LCD_ClearScreen();
             LCD_PutString(temp, 5);
+            LCD_PutString("C   ", 4);
+            
+
+            LCD_PutString(heures, 2 );
+            LCD_PutString(":", 1 );
+            LCD_PutString(minutes, 2 );
+            LCD_PutString(":", 1 );
+            LCD_PutString(secondes, 2 );
+
+            LCD_PutString("\r\n", 4 );
+            LCD_PutString(jour, 2 );
+            LCD_PutString("/", 1 );
+            LCD_PutString(mois, 2 );
+            LCD_PutString("/", 1 );
+            LCD_PutString(year, 2 );
         }
-        // Add your application code
+
+
     }
 
     return 1;
