@@ -1,0 +1,6 @@
+EEPROM SPI :
+
+P79_EECS 	-> CS/	-> 79 	-> RG0 (attention jumper)
+P10_SCKA 	-> SCK	-> 10	-> RG6
+P12_MOSIA 	-> SI	-> 12	-> RG8
+P11_MISOA 	-> SO	-> 11	-> RG7

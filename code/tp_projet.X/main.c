@@ -47,6 +47,9 @@
 */
 #include "mcc_generated_files/system.h"
 #include <math.h>
+#include "lcd/lcd.h"
+#include <stdio.h>
+#include "eeprom_driver/eeprom_driver.h"
 
 /*
                          Main application
@@ -89,12 +92,12 @@ int main(void)
 
     
     
-    char secondes[2];
-    char minutes[2];
-    char heures[2];
-    char jour[2];
-    char mois[2];
-    char year[4];
+    char secondes[3];
+    char minutes[3];
+    char heures[3];
+    char jour[3];
+    char mois[3];
+    char year[3];
 
     
     
@@ -102,6 +105,7 @@ int main(void)
     SYSTEM_Initialize();
     setupLCD();
     
+    //EEPROM_SELECT_SetHigh();
     
 
     
