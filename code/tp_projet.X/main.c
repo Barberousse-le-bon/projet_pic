@@ -100,14 +100,15 @@ int main(void)
     char year[3];
     uint8_t data;
     uint16_t add = 0;
-    char data_str[4];
+    char data_str[3];
+    char add_str[3];
 
     
     
     // initialize the device
     SYSTEM_Initialize();
     setupLCD();
-    write_eeprom(0x0000, 0x0a);
+    write_eeprom(0x0000, 0x00);
 
     
     while (1)
@@ -153,7 +154,12 @@ int main(void)
             sprintf( data_str, "%d", data );  
             
             LCD_PutString(" ", 1);
-            LCD_PutString(data_str, 4 );       
+            LCD_PutString(data_str, 3 );   
+            
+            LCD_PutString(" ", 1);
+            sprintf( add_str, "%d", add );
+            LCD_PutString(add_str, 3 );
+            
             add +=1;
         }
 

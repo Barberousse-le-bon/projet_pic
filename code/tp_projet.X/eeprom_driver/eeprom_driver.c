@@ -38,12 +38,12 @@ uint8_t read_eeprom(uint16_t address){
 
 void write_eeprom(uint16_t address, uint8_t mot){
     
-    uint8_t message[4];
+    uint8_t message[5];
     uint8_t data[4];
     uint8_t cmd = write;
     //0000 0011 aaaa aaaa aaaa aaaa mmmm mmmm message à envoyer, les 0 c'est pour garder l'horloge active le temps de recevoir les données 
     message[0] = cmd;
-   message[1] = address>> 8;               //8 premiers
+    message[1] = address>> 8;               //8 premiers
     message[2] = address;        // 8 derniers
     message[3] = mot;
     
@@ -57,7 +57,7 @@ void write_eeprom(uint16_t address, uint8_t mot){
     
    
     EEPROM_SELECT_SetHigh();
-    
+    uint8_t value = read_eeprom(address);
 
 }
 
