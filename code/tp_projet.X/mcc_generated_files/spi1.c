@@ -95,8 +95,8 @@ void SPI1_Initialize (void)
     SPI1URDTL = 0x00;
     // SPI1URDTH 0; 
     SPI1URDTH = 0x00;
-    // SPIEN enabled; DISSDO disabled; MCLKEN FOSC/2; CKP Idle:Low, Active:High; SSEN disabled; MSTEN Master; MODE16 enabled; SMP Middle; DISSCK disabled; SPIFE Frame Sync pulse precedes; CKE Idle to Active; MODE32 disabled; SPISIDL disabled; ENHBUF enabled; DISSDI disabled; 
-    SPI1CON1L = 0x8421;
+    // SPIEN enabled; DISSDO disabled; MCLKEN FOSC/2; CKP Idle:Low, Active:High; SSEN disabled; MSTEN Master; MODE16 disabled; SMP Middle; DISSCK disabled; SPIFE Frame Sync pulse precedes; CKE Active to Idle; MODE32 disabled; SPISIDL disabled; ENHBUF enabled; DISSDI disabled; 
+    SPI1CON1L = 0x8121;
 
 }
 
@@ -107,16 +107,15 @@ void SPI1_Exchange( uint8_t *pTransmitData, uint8_t *pReceiveData )
     {
 
     }
-
-    SPI1BUFL = *((uint16_t*)pTransmitData);
+        
+    SPI1BUFL = *((uint8_t*)pTransmitData);
 
     while ( SPI1STATLbits.SPIRBE == true)
     {
     
     }
 
-    *((uint16_t*)pReceiveData) = SPI1BUFL;
-
+    *((uint8_t*)pReceiveData) = SPI1BUFL;
 }
 
 uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t *pReceiveData)
@@ -131,9 +130,7 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
     uint16_t addressIncrement;
     uint16_t receiveAddressIncrement, sendAddressIncrement;
 
-    addressIncrement = 2;
-    byteCount >>= 1;
-
+    addressIncrement = 1;
 
     // set the pointers and increment delta 
     // for transmit and receive operations
@@ -170,15 +167,17 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
         if ( SPI1STATLbits.SPITBF != true )
         {
 
-            SPI1BUFL = *((uint16_t*)pSend);
+            SPI1BUFL = *pSend;
 
             pSend += sendAddressIncrement;
             dataSentCount++;
+
         }
 
         if (SPI1STATLbits.SPIRBE == false)
         {
-            *((uint16_t*)pReceived) = SPI1BUFL;
+
+            *pReceived = SPI1BUFL;
 
             pReceived += receiveAddressIncrement;
             dataReceivedCount++;
@@ -190,7 +189,7 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
         if (SPI1STATLbits.SPIRBE == false)
         {
 
-            *((uint16_t*)pReceived) = SPI1BUFL;
+            *pReceived = SPI1BUFL;
 
             pReceived += receiveAddressIncrement;
             dataReceivedCount++;
@@ -200,21 +199,20 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
     return dataSentCount;
 }
 
-uint16_t SPI1_Exchange16bit( uint16_t data )
+uint8_t SPI1_Exchange8bit( uint8_t data )
 {
-    uint16_t receiveData;
-
-    SPI1_Exchange((uint8_t*)&data, (uint8_t*)&receiveData);
+    uint8_t receiveData;
+    
+    SPI1_Exchange(&data, &receiveData);
 
     return (receiveData);
 }
 
 
-uint16_t SPI1_Exchange16bitBuffer(uint16_t *dataTransmitted, uint16_t byteCount, uint16_t *dataReceived)
+uint16_t SPI1_Exchange8bitBuffer(uint8_t *dataTransmitted, uint16_t byteCount, uint8_t *dataReceived)
 {
-    return (SPI1_ExchangeBuffer((uint8_t*)dataTransmitted, byteCount, (uint8_t*)dataReceived));
+    return (SPI1_ExchangeBuffer(dataTransmitted, byteCount, dataReceived));
 }
-
 
 inline __attribute__((__always_inline__)) SPI1_TRANSFER_MODE SPI1_TransferModeGet(void)
 {

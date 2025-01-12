@@ -55,11 +55,11 @@ void INTERRUPT_Initialize (void)
     //    RTCI: RTCC - Real-Time Clock and Calendar
     //    Priority: 1
         IPC15bits.RTCIP = 1;
-    //    ADI: ADC1 - A/D Converter 1
-    //    Priority: 1
-        IPC3bits.AD1IP = 1;
     //    TI: T1 - Timer1
     //    Priority: 1
         IPC0bits.T1IP = 1;
+    //    ADI: ADC1 - A/D Converter 1
+    //    Priority: 1
+        IPC3bits.AD1IP = 1;
 
 }

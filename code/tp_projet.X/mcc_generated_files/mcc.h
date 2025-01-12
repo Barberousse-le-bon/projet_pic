@@ -51,12 +51,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "rtcc.h"
+#include "adc1.h"
+#include "tmr1.h"
+#include "spi1.h"
 #include "interrupt_manager.h"
 #include "traps.h"
-#include "rtcc.h"
-#include "spi1.h"
-#include "tmr1.h"
-#include "adc1.h"
 
 #warning "This file will be removed in future MCC releases. Use system.h instead."
 

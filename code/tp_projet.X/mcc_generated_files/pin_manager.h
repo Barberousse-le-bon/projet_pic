@@ -511,11 +511,11 @@
   @Example
     <code>
     // Set RG7 high (1)
-    SDO1_SetHigh();
+    SDI1_SetHigh();
     </code>
 
 */
-#define SDO1_SetHigh()          (_LATG7 = 1)
+#define SDI1_SetHigh()          (_LATG7 = 1)
 /**
   @Summary
     Sets the GPIO pin, RG7, low using LATG7.
@@ -535,11 +535,11 @@
   @Example
     <code>
     // Set RG7 low (0)
-    SDO1_SetLow();
+    SDI1_SetLow();
     </code>
 
 */
-#define SDO1_SetLow()           (_LATG7 = 0)
+#define SDI1_SetLow()           (_LATG7 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RG7, using LATG7.
@@ -559,11 +559,11 @@
   @Example
     <code>
     // Toggle RG7
-    SDO1_Toggle();
+    SDI1_Toggle();
     </code>
 
 */
-#define SDO1_Toggle()           (_LATG7 ^= 1)
+#define SDI1_Toggle()           (_LATG7 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RG7.
@@ -585,11 +585,11 @@
     uint16_t portValue;
 
     // Read RG7
-    postValue = SDO1_GetValue();
+    postValue = SDI1_GetValue();
     </code>
 
 */
-#define SDO1_GetValue()         _RG7
+#define SDI1_GetValue()         _RG7
 /**
   @Summary
     Configures the GPIO pin, RG7, as an input.
@@ -609,11 +609,11 @@
   @Example
     <code>
     // Sets the RG7 as an input
-    SDO1_SetDigitalInput();
+    SDI1_SetDigitalInput();
     </code>
 
 */
-#define SDO1_SetDigitalInput()  (_TRISG7 = 1)
+#define SDI1_SetDigitalInput()  (_TRISG7 = 1)
 /**
   @Summary
     Configures the GPIO pin, RG7, as an output.
@@ -633,11 +633,11 @@
   @Example
     <code>
     // Sets the RG7 as an output
-    SDO1_SetDigitalOutput();
+    SDI1_SetDigitalOutput();
     </code>
 
 */
-#define SDO1_SetDigitalOutput() (_TRISG7 = 0)
+#define SDI1_SetDigitalOutput() (_TRISG7 = 0)
 /**
   @Summary
     Sets the GPIO pin, RG8, high using LATG8.
@@ -657,11 +657,11 @@
   @Example
     <code>
     // Set RG8 high (1)
-    SDI1_SetHigh();
+    SDO1_SetHigh();
     </code>
 
 */
-#define SDI1_SetHigh()          (_LATG8 = 1)
+#define SDO1_SetHigh()          (_LATG8 = 1)
 /**
   @Summary
     Sets the GPIO pin, RG8, low using LATG8.
@@ -681,11 +681,11 @@
   @Example
     <code>
     // Set RG8 low (0)
-    SDI1_SetLow();
+    SDO1_SetLow();
     </code>
 
 */
-#define SDI1_SetLow()           (_LATG8 = 0)
+#define SDO1_SetLow()           (_LATG8 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RG8, using LATG8.
@@ -705,11 +705,11 @@
   @Example
     <code>
     // Toggle RG8
-    SDI1_Toggle();
+    SDO1_Toggle();
     </code>
 
 */
-#define SDI1_Toggle()           (_LATG8 ^= 1)
+#define SDO1_Toggle()           (_LATG8 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RG8.
@@ -731,11 +731,11 @@
     uint16_t portValue;
 
     // Read RG8
-    postValue = SDI1_GetValue();
+    postValue = SDO1_GetValue();
     </code>
 
 */
-#define SDI1_GetValue()         _RG8
+#define SDO1_GetValue()         _RG8
 /**
   @Summary
     Configures the GPIO pin, RG8, as an input.
@@ -755,11 +755,11 @@
   @Example
     <code>
     // Sets the RG8 as an input
-    SDI1_SetDigitalInput();
+    SDO1_SetDigitalInput();
     </code>
 
 */
-#define SDI1_SetDigitalInput()  (_TRISG8 = 1)
+#define SDO1_SetDigitalInput()  (_TRISG8 = 1)
 /**
   @Summary
     Configures the GPIO pin, RG8, as an output.
@@ -779,11 +779,11 @@
   @Example
     <code>
     // Sets the RG8 as an output
-    SDI1_SetDigitalOutput();
+    SDO1_SetDigitalOutput();
     </code>
 
 */
-#define SDI1_SetDigitalOutput() (_TRISG8 = 0)
+#define SDO1_SetDigitalOutput() (_TRISG8 = 0)
 
 /**
     Section: Function Prototypes

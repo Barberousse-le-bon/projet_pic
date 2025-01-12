@@ -98,25 +98,22 @@ int main(void)
     char jour[3];
     char mois[3];
     char year[3];
+    uint8_t data;
+    uint16_t add = 0;
+    char data_str[4];
 
     
     
     // initialize the device
     SYSTEM_Initialize();
     setupLCD();
-    
-    //EEPROM_SELECT_SetHigh();
-    
+    write_eeprom(0x0000, 0x0a);
 
     
     while (1)
     {
 
-        if(tmr_flag == 1){
-            tmr_flag =0;
 
-
-        }
         if(time_flag){
             time_flag = 0;
             
@@ -150,6 +147,14 @@ int main(void)
             LCD_PutString(mois, 2 );
             LCD_PutString("/", 1 );
             LCD_PutString(year, 2 );
+            
+            
+            data = read_eeprom(add);
+            sprintf( data_str, "%d", data );  
+            
+            LCD_PutString(" ", 1);
+            LCD_PutString(data_str, 4 );       
+            add +=1;
         }
 
 
